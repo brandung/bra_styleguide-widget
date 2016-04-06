@@ -1,10 +1,10 @@
 /**
- * bra_module-widget.css v2.5.0
- * https://github.com/brandung/bra_module-widget
+ * bra_styleguide-widget.css v1.0.0
+ https://github.com/brandung/bra_styleguide-widget.git
  *
  * @author: Simon Kemmerling
  *
- * Copyright 2015, brandung GmbH & Co. KG
+ * Copyright 2016, brandung GmbH & Co. KG
  * http://www.brandung.de
  *
  * MIT License (MIT)
@@ -165,13 +165,11 @@ span.sg__ctr-check {
 	padding: .5em;
 }
 
-.mw-sub-headline {
-	text-transform: uppercase !important;
-	font-family: 'Lucida Console', monospace !important;
-	font-style: italic !important;
-	color: cornflowerblue !important;
-	clear: both;
-	margin: 2rem 0 0;
+.sg__hl--subline {
+	background: none;
+	border: none;
+	padding: 0;
+	margin-bottom: 0;
 }
 
 .sg__wgt-container li {
