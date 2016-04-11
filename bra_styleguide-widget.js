@@ -17,7 +17,6 @@
 
 	var self = {
 			settings: {
-				mwCheckbox: '.mw-container__check',		// Selector: Checkbox on each module headline
 				isStickyHeader: true,					// Boolean: set sticky header value
 				stickyHeader: '.main-nav-wrapper',		// Selector: Sticky Header wrapper
 
@@ -104,13 +103,12 @@
 		// add event listener
 		_.addListener();
 
-		//TODO: switch get functions to public methodes
 		// check if only one component should been showed
-		_.showComponent();
+		self.showComponent();
 		// check if widget should be hidden
-		_.hideWidget();
+		self.hideWidget();
 		// check if hidden components should be deleted
-		_.deleteComponents();
+		self.deleteComponents();
 	};
 
 	/**
@@ -179,57 +177,6 @@
 		self.settings.grid.appendTo('body');
 	};
 
-
-	/**
-	 * Show only single component
-	 *
-	 * @private
-	 */
-	_.showComponent = function () {
-		if(_.getParam(self.settings.compParam)) {
-			// hide all components
-			self.settings.widget.find('.mw-check').click();
-
-			// hide headlines
-			$(self.settings.deepLinkObj).hide();
-
-			// show single component if string matched
-			$(self.settings.mwCheckbox).each(function() {
-
-				var _this = $(this),
-					selfText = $.trim(_this.prev().text());
-
-				if(selfText.toLowerCase() === _.getParam(self.settings.compParam).toLowerCase()) {
-					_this.click();
-					return false;
-				}
-			});
-		}
-	};
-
-
-	/**
-	 * Show widget
-	 *
-	 * @private
-	 */
-	_.hideWidget = function () {
-		if(_.getParam(self.settings.hideParam) === 'true') {
-			self.settings.widget.remove();
-		}
-	};
-
-
-	/**
-	 * Show widget
-	 *
-	 * @private
-	 */
-	_.deleteComponents = function () {
-		if(_.getParam(self.settings.deleteParam) === 'true') {
-			$('.mw-wrapper:hidden').remove();
-		}
-	};
 
 
 	/**
@@ -439,6 +386,62 @@
 		}
 
 		return false;
+	};
+
+
+
+	/**
+	 * Show only single component
+	 *
+	 * @public
+	 */
+	self.showComponent = function () {
+		var cl = self.settings.classes;
+
+		if(_.getParam(self.settings.compParam)) {
+			// hide all components
+			self.settings.widget.find('.' + cl.ctrCheck).click();
+
+			// show single component if string matched
+			self.settings.widget.find('.' + cl.wgtCheck).each(function() {
+				var _this = $(this),
+					selfText = $.trim(_this.prev().text());
+
+				if(selfText.toLowerCase() === _.getParam(self.settings.compParam).toLowerCase()) {
+					_this.click();
+					return false;
+				}
+			});
+		}
+	};
+
+
+	/**
+	 * Hide widget
+	 *
+	 * @public
+	 */
+	self.hideWidget = function () {
+		if(_.getParam(self.settings.hideParam) === 'true') {
+			self.settings.widget.remove();
+		}
+	};
+
+
+	/**
+	 * Delete hidden components
+	 *
+	 * @public
+	 */
+	self.deleteComponents = function () {
+		if(_.getParam(self.settings.deleteParam) === 'true') {
+			self.selectors.$dataRole.each(function () {
+				var $this = $(this);
+				if($this.is(':hidden')) {
+					$this.remove();
+				}
+			});
+		}
 	};
 
 
